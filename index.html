@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>secret stuff</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(to bottom, #ffe0f0, #ffe);
+      overflow: hidden;
+      text-align: center;
+      color: #ff4d6d;
+    }
+
+    h1, p {
+      transition: opacity 1s ease;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-top: 2em;
+      animation: bounce 2s infinite;
+    }
+
+    p {
+      font-size: 1.5em;
+      margin: 1em auto;
+      width: 80%;
+      color: #444;
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -150px;
+      width: 60px;
+      height: 80px;
+      background-color: #ff4d6d;
+      border-radius: 50% 50% 50% 50%;
+      animation: floatUp 8s linear infinite;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .balloon::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      width: 2px;
+      height: 30px;
+      background: #444;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-150vh); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* Cake Styles */
+    .cake-container {
+      margin: 40px auto;
+      animation: popUp 2s ease-out forwards;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    @keyframes popUp {
+      0% { opacity: 0; transform: scale(0.5) translateY(50px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .cake {
+      position: relative;
+      width: 200px;
+      height: 120px;
+      background: #ff8fab;
+      border-radius: 20px 20px 10px 10px;
+      box-shadow: 0 5px 0 #d36e82;
+      margin: 0 auto;
+      transition: transform 0.3s ease;
+    }
+
+    .cake:hover {
+      transform: scale(1.05);
+    }
+
+    .cake::before {
+      content: '';
+      position: absolute;
+      top: -25px;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      background: repeating-linear-gradient(
+        45deg,
+        #fff,
+        #fff 10px,
+        #ffe0f0 10px,
+        #ffe0f0 20px
+      );
+      border-radius: 20px 20px 0 0;
+    }
+
+    .candle {
+      position: absolute;
+      top: -35px;
+      width: 10px;
+      height: 30px;
+      background: #ffd166;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+      animation: wiggle 2s infinite ease-in-out;
+    }
+
+    .flame {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 15px;
+      background: radial-gradient(circle, #fff200 40%, #ffa500 70%, transparent 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 10px #ff0;
+      animation: flicker 1s infinite alternate;
+    }
+
+    @keyframes flicker {
+      0% { transform: translateX(-50%) scale(1); opacity: 1; }
+      100% { transform: translateX(-50%) scale(1.2); opacity: 0.8; }
+    }
+
+    @keyframes wiggle {
+      0%, 100% { transform: translateX(-50%) rotate(-2deg); }
+      50% { transform: translateX(-50%) rotate(2deg); }
+    }
+
+    .confetti-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      overflow: hidden;
+      display: none;
+      z-index: 2;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+
+    #slideshow {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 400px;
+      height: 300px;
+      transform: translate(-50%, -50%);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      z-index: 3;
+      background: white;
+    }
+
+        .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+
+    /* Add these to center the image */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    }
+        #slideshow {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 300px;
+    transform: translate(-50%, -50%);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    z-index: 3;
+    background: white;
+    }
+
+    .slide {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    position: absolute;
+    }
+
+
+    .slide.active {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="title">🎉 Happy Birthday, ABBY! 🎉</h1>
+  <p id="msg1">You're literally the best friend ever and I wish you nothing but success!!</p>
+  <p id="msg2">You're literally the most hardworking person ever and honestly you're amazing at everything you do!
+  </br>you literally shine like a diamond, and I can say from the bottom of my heart that I appreciate you!
+</br> I hope you have the best years coming and I hope all your dreams come true
+  </p>
+
+  <!-- 🎂 Clickable Cake -->
+  <div class="cake-container" onclick="explodeCake(this)" id="cakeContainer">
+    <div class="cake">
+      <div class="candle"><div class="flame"></div></div>
+    </div>
+  </div>
+
+  <!-- 🎉 Confetti Explosion -->
+  <div class="confetti-container" id="confetti-container"></div>
+
+  <!-- 📸 Slideshow -->
+  <div id="slideshow">
+    <img class="slide" src="IMG_9925.jpg" />
+    <img class="slide" src="IMG_9926.jpg" />
+    <img class="slide" src="IMG_9927.jpg" />
+    <img class="slide" src="IMG_9928.jpg" />
+  </div>
+
+  <!-- 🎈 Balloons -->
+  <script>
+    for (let i = 0; i < 20; i++) {
+      const b = document.createElement('div');
+      b.classList.add('balloon');
+      b.style.left = Math.random() * 100 + 'vw';
+      b.style.animationDuration = 5 + Math.random() * 5 + 's';
+      b.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 80%)`;
+      document.body.appendChild(b);
+    }
+
+    function explodeCake(cakeElement) {
+      // Hide main text
+      document.getElementById('title').style.display = 'none';
+      document.getElementById('msg1').style.display = 'none';
+      document.getElementById('msg2').style.display = 'none';
+      document.getElementById('cakeContainer').style.display = 'none';
+
+      // Show confetti
+      const container = document.getElementById('confetti-container');
+      container.style.display = 'block';
+
+      for (let i = 0; i < 150; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
+        confetti.style.animationDuration = 2 + Math.random() * 2 + 's';
+        container.appendChild(confetti);
+      }
+
+      // Show slideshow
+      const slides = document.querySelectorAll('.slide');
+      let index = 0;
+      slides[index].classList.add('active');
+      document.getElementById('slideshow').style.display = 'block';
+
+      setInterval(() => {
+        slides[index].classList.remove('active');
+        index = (index + 1) % slides.length;
+        slides[index].classList.add('active');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
