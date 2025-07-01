@@ -182,46 +182,39 @@
       background: white;
     }
 
-        .slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-
-    /* Add these to center the image */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    }
-        #slideshow {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 400px;
-    height: 300px;
-    transform: translate(-50%, -50%);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    z-index: 3;
-    background: white;
-    }
-
     .slide {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    position: absolute;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
     }
-
 
     .slide.active {
       opacity: 1;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      #slideshow {
+        width: 90vw;
+        height: 70vw; /* maintain approx 4:3 ratio */
+      }
+
+      h1 {
+        font-size: 2em;
+      }
+
+      p {
+        font-size: 1.2em;
+        width: 90%;
+      }
+
+      .cake {
+        width: 150px;
+        height: 90px;
+      }
     }
   </style>
 </head>
@@ -229,8 +222,8 @@
   <h1 id="title">🎉 Happy Birthday, ABBY! 🎉</h1>
   <p id="msg1">You're literally the best friend ever and I wish you nothing but success!!</p>
   <p id="msg2">You're literally the most hardworking person ever and honestly you're amazing at everything you do!
-  </br>you literally shine like a diamond, and I can say from the bottom of my heart that I appreciate you!
-</br> I hope you have the best years coming and I hope all your dreams come true
+  <br>you literally shine like a diamond, and I can say from the bottom of my heart that I appreciate you!
+  <br> I hope you have the best years coming and I hope all your dreams come true
   </p>
 
   <!-- 🎂 Clickable Cake -->
@@ -263,7 +256,7 @@
     }
 
     function explodeCake(cakeElement) {
-      // Hide main text
+      // Hide main text and cake
       document.getElementById('title').style.display = 'none';
       document.getElementById('msg1').style.display = 'none';
       document.getElementById('msg2').style.display = 'none';
